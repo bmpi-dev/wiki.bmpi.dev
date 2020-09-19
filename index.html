@@ -733,6 +733,8 @@ Error message and password prompt
 
 <li>Java面试题</li>
 
+<li>JVM调试运行时获取数据库连接配置</li>
+
 <li>JVM进阶</li>
 
 <li>KteUy8WMBAAJ</li>
@@ -16286,7 +16288,7 @@ exports.context = contextWidget;
 <div bag="default" revision="1" title="$:/status/UserName">
 <pre></pre>
 </div>
-<div created="20200919043424604" list="JVM进阶 MySql进阶 Index" modified="20200919123413026" title="$:/StoryList">
+<div created="20200919161807398" list="JVM进阶 Index" modified="20200919162430015" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20200519141000553" list="$:/.giffmex/Buttons/more-tiddler-edit-actions $:/core/ui/Buttons/delete $:/core/ui/Buttons/cancel $:/core/ui/Buttons/save" modified="20200521145647980" tags="$:/giffmex/bigeditarea $:/giffmex/stroll" title="$:/tags/EditToolbar">
@@ -18424,7 +18426,10 @@ https://zhuanlan.zhihu.com/p/24910702
 
 https://github.com/doocs/advanced-java</pre>
 </div>
-<div created="20200919105303802" modified="20200919124725585" tags="Java jvm" title="JVM进阶">
+<div created="20200919162424648" modified="20200919162509748" tags="jvm" title="JVM调试运行时获取数据库连接配置">
+<pre>[[JVM进阶]]</pre>
+</div>
+<div created="20200919105303802" modified="20200919162424646" tags="Java jvm" title="JVM进阶">
 <pre>! JVM调优工具
 
 !! JVM
@@ -18581,10 +18586,18 @@ Java debuger.
 
 https://javahotfix.blogspot.com/2019/03/jdb-using-java-command-line-debugging.html
 
-```bash
-java -Dspring.profiles.active=container -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8888 -jar demo-springboot-docker-1.0.0.jar
+[[JVM调试运行时获取数据库连接配置]]
 
-jdb -attach 8888
+```bash
+java -Dspring.profiles.active=container -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8888 -jar demo-springboot-docker-1.0.0.jar # start jvm
+
+jdb -attach 8888 # debug attach jvm
+
+stop at demo.Application:31 # setup breakpoint and call `curl http://localhost:8080/user\?name\=dave`
+
+dump this.userMapper.h.advised.targetSource.target.h.sqlSession.getConfiguration().environment.getDataSource().jdbcUrl # print spring datasource jdbc url
+
+# this.userMapper.h.advised.targetSource.target.h.sqlSession.getConfiguration().environment.getDataSource().jdbcUrl = &quot;jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useSSL=false&amp;AllowPublicKeyRetrieval=True&quot;
 ```
 
 !!! 远程调试
