@@ -617,9 +617,9 @@ Error message and password prompt
 
 <li>AppSync</li>
 
-<li>aws</li>
-
 <li>AWS</li>
+
+<li>aws</li>
 
 <li>AWS各服务解释</li>
 
@@ -808,6 +808,8 @@ Error message and password prompt
 <li>TDD学习</li>
 
 <li>Telegram</li>
+
+<li>Use TCPDUMP to Monitor HTTP Traffic</li>
 
 <li>vscode</li>
 
@@ -16288,7 +16290,7 @@ exports.context = contextWidget;
 <div bag="default" revision="1" title="$:/status/UserName">
 <pre></pre>
 </div>
-<div created="20200919161807398" list="JVM进阶 Index" modified="20200919162430015" title="$:/StoryList">
+<div created="20200929001451904" list="[[Use TCPDUMP to Monitor HTTP Traffic]] 大文件跨服务器快速复制 Index" modified="20200929001451904" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20200519141000553" list="$:/.giffmex/Buttons/more-tiddler-edit-actions $:/core/ui/Buttons/delete $:/core/ui/Buttons/cancel $:/core/ui/Buttons/save" modified="20200521145647980" tags="$:/giffmex/bigeditarea $:/giffmex/stroll" title="$:/tags/EditToolbar">
@@ -16364,7 +16366,7 @@ exports.context = contextWidget;
     }
 }</pre>
 </div>
-<div created="20200418122623650" modified="20200919123555580" title="$:/temp/NewTagName">
+<div created="20200418122623650" modified="20200929001458563" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="Paco Rivière" core-version="&gt;=5.0.0" created="20200629142235084" dependents="" description="Catalan (Spain)" icon="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22810%22%20height%3D%22540%22%3E%0A%3Crect%20width%3D%22810%22%20height%3D%22540%22%20fill%3D%22%23FCDD09%22%2F%3E%0A%3Cpath%20stroke%3D%22%23DA121A%22%20stroke-width%3D%2260%22%20d%3D%22M0%2C90H810m0%2C120H0m0%2C120H810m0%2C120H0%22%2F%3E%0A%3C%2Fsvg%3E" modified="20200629142235084" name="ca-ES" original-plugin-type="language" original-tags="" original-title="$:/languages/ca-ES" original-type="application/json" requires-reload="no" server-url="https://tiddlywiki.com/library/v5.1.22/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/https://tiddlywiki.com/library/v5.1.22/index.html/$:/languages/ca-ES" type="text/vnd.tiddlywiki" version="5.1.22">
@@ -17485,13 +17487,13 @@ https://github.com/aws-samples/aws-aurora-serverless-data-api-sam
 <div created="20200630023156644" modified="20200630023156644" title="AppSync">
 <pre></pre>
 </div>
+<div created="20200630030010879" modified="20200630030010879" title="AWS">
+<pre></pre>
+</div>
 <div created="20200630021103598" modified="20200630021111590" tags="" title="aws">
 <pre>&lt;&lt;list-links &quot;[tag[aws]]&quot;&gt;&gt;
 
 &lt;&lt;list-links &quot;[tag[AWS]]&quot;&gt;&gt;</pre>
-</div>
-<div created="20200630030010879" modified="20200630030010879" title="AWS">
-<pre></pre>
 </div>
 <div created="20200630023142884" modified="20200630023156638" tags="aws" title="AWS各服务解释">
 <pre>!AWS Fargate
@@ -18939,6 +18941,25 @@ https://github.com/madawei2699/mars-rover</pre>
 <div created="20200630021904139" modified="20200630021934736" tags="AWS好文" title="Telegram">
 <pre>&lt;&lt;list-links &quot;[tag[Telegram]]&quot;&gt;&gt;</pre>
 </div>
+<div created="20200929001532961" modified="20200929001545800" tags="linux" title="Use TCPDUMP to Monitor HTTP Traffic">
+<pre>1. To monitor HTTP traffic including request and response headers and message body:
+
+tcpdump -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)'
+
+2. To monitor HTTP traffic including request and response headers and message body from a particular source:
+
+tcpdump -A -s 0 'src example.com and tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)'
+
+3. To monitor HTTP traffic including request and response headers and message body from local host to local host:
+
+tcpdump -A -s 0 'tcp port 80 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)' -i lo
+
+4. To only include HTTP requests, modify “tcp port 80” to “tcp dst port 80” in above commands
+
+5. Capture TCP packets from local host to local host
+
+tcpdump -i lo</pre>
+</div>
 <div created="20200630014035371" modified="20200630014045281" tags="" title="vscode">
 <pre>&lt;&lt;list-links &quot;[tag[vscode]]&quot;&gt;&gt;</pre>
 </div>
@@ -19120,7 +19141,7 @@ pandoc --pdf-engine=xelatex --toc -s 2019.md -o 2019.pdf
 <div created="20200909070835291" modified="20200909075234390" title="压测">
 <pre></pre>
 </div>
-<div created="20200919123524554" modified="20200919123948589" tags="netcat" title="大文件跨服务器快速复制">
+<div created="20200919123524554" modified="20200929001500575" tags="netcat linux" title="大文件跨服务器快速复制">
 <pre>scp由于需要额外的加解密，导致大文件复制较慢，可使用netcat在网卡上监听tcp包复制文件。
 
 https://www.tecmint.com/transfer-files-between-two-linux-machines/
