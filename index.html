@@ -17501,7 +17501,7 @@ https://github.com/aws-samples/aws-aurora-serverless-data-api-sam
 <div created="20200630030010879" modified="20200630030010879" title="AWS">
 <pre></pre>
 </div>
-<div created="20200630023142884" modified="20201030004357187" tags="aws" title="AWS各服务解释">
+<div created="20200630023142884" modified="20201030004511916" tags="aws" title="AWS各服务解释">
 <pre>!AWS Fargate
 适合任务型服务，冷启动时间超过一分钟，按秒计费，需结合ECS/EKS运行
 
@@ -17573,6 +17573,8 @@ If you no longer wish to be charged for a VPC service you're using, you simply t
 ```
 
 从上述可看出来VPC大部分服务不收费，除了VPN/NAT Gateway/Endpoints(Gateway免费，也就是S3与DynamoDB服务可用/Interface收费)，而Interface的Endpoints收费很贵，不需要的时候尽可能停止掉，而要想单独删除还不行，必须把相关AWS的服务删除掉才能停止收费。
+
+Internet Gateway是免费的。
 
 ''需要注意的是，Endpoints是按照可用区域收费的，创建一个Endpoints如果存在6个可用区域，那就是按6倍来计费的。''
 
