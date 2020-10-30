@@ -17501,7 +17501,7 @@ https://github.com/aws-samples/aws-aurora-serverless-data-api-sam
 <div created="20200630030010879" modified="20200630030010879" title="AWS">
 <pre></pre>
 </div>
-<div created="20200630023142884" modified="20201030004511916" tags="aws" title="AWS各服务解释">
+<div created="20200630023142884" modified="20201030005015179" tags="aws" title="AWS各服务解释">
 <pre>!AWS Fargate
 适合任务型服务，冷启动时间超过一分钟，按秒计费，需结合ECS/EKS运行
 
@@ -17544,8 +17544,12 @@ serverless 架构，未来应用形态
 !AWS API Gateway
 网关
 
+
+!Amazon Lightsail
+便宜的AWS服务器，最低一个月只需要3.5美刀
+
 !Amazon Aurora/RDS for MySQL
-Aurora最便宜的实例一个月运行需要30多美刀，而RDS最便宜的实例一个月只需要12多美刀。降低成本的一个方法是部署lambda自动启动停止实例，比如定时任务程序每天固定启动半小时，那使用RDS最便宜一个月只需要0.3*30* 0.017=0.153美元，而使用Aurora则需要0.3*30* 0.041=0.369美元。虽然Aurora Serverless号称Serverless，但是由于其必须配置VPC Endpoints导致费用暴增，一个月最便宜也需要7美刀多。所以定时任务使用MySQL最便宜的就是自动启停的RDS版本，当然也可以选择Dynamodb，不过这种专属于AWS的兼容性不好，一旦要迁移回MySQL则迁移成本不低。如果要长期运行，那可以选择RDS版本，一个月最低12美元，这种比单独的VPS安装MySQL要贵，VPS最便宜可以选择5美刀的。
+Aurora最便宜的实例一个月运行需要30多美刀，而RDS最便宜的实例一个月只需要12多美刀。降低成本的一个方法是部署lambda自动启动停止实例，比如定时任务程序每天固定启动半小时，那使用RDS最便宜一个月只需要0.3*30* 0.017=0.153美元，而使用Aurora则需要0.3*30* 0.041=0.369美元。虽然Aurora Serverless号称Serverless，但是由于其必须配置VPC Endpoints导致费用暴增，一个月最便宜也需要7美刀多。所以定时任务使用MySQL最便宜的就是自动启停的RDS版本，当然也可以选择Dynamodb，不过这种专属于AWS的兼容性不好，一旦要迁移回MySQL则迁移成本不低。如果要长期运行，那可以选择RDS版本，一个月最低12美元，这种比单独的VPS安装MySQL要贵，VPS最便宜可以选择5美刀的。还可以选择Amazon Lightsail，只需要3.5美刀。
 
 !Amazon Aurora Serverless
 兼容MySQL和PostgreSQL的关系型数据库[[serverless]]版，适合低频使用RDBMS的网站或服务，或者开发测试数据库，可以根据负载自动扩容。
