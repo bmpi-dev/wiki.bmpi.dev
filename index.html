@@ -719,6 +719,8 @@ Error message and password prompt
 
 <li>How to remove the first commit in git?</li>
 
+<li>HTTP API</li>
+
 <li>IaC</li>
 
 <li>Index</li>
@@ -776,6 +778,8 @@ Error message and password prompt
 <li>NoSQL</li>
 
 <li>OneDrive</li>
+
+<li>OpenAPI</li>
 
 <li>OpenJDK</li>
 
@@ -16402,7 +16406,7 @@ exports.context = contextWidget;
     }
 }</pre>
 </div>
-<div created="20200418122623650" modified="20201216053350495" title="$:/temp/NewTagName">
+<div created="20200418122623650" modified="20201216081856593" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="Paco Rivière" core-version="&gt;=5.0.0" created="20200629142235084" dependents="" description="Catalan (Spain)" icon="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22810%22%20height%3D%22540%22%3E%0A%3Crect%20width%3D%22810%22%20height%3D%22540%22%20fill%3D%22%23FCDD09%22%2F%3E%0A%3Cpath%20stroke%3D%22%23DA121A%22%20stroke-width%3D%2260%22%20d%3D%22M0%2C90H810m0%2C120H0m0%2C120H810m0%2C120H0%22%2F%3E%0A%3C%2Fsvg%3E" modified="20200629142235084" name="ca-ES" original-plugin-type="language" original-tags="" original-title="$:/languages/ca-ES" original-type="application/json" requires-reload="no" server-url="https://tiddlywiki.com/library/v5.1.22/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/https://tiddlywiki.com/library/v5.1.22/index.html/$:/languages/ca-ES" type="text/vnd.tiddlywiki" version="5.1.22">
@@ -18077,6 +18081,26 @@ A last way could be to create an orphan branch, a branch with the same content b
 
 git checkout --orphan &lt;new-branch-name&gt;</pre>
 </div>
+<div created="20201216081836603" modified="20201216082139481" tags="[[web dev]] api" title="HTTP API">
+<pre>https://mp.weixin.qq.com/s/zf0GFgFrn2NLqOCe2mrRew
+
+! GraphQL的问题
+
+* GraphQL 所有请求都是 POST，这破坏了整个 HTTP 缓存的生态
+* 所有响应都是 200 OK，这破坏了 HTTP semantics，所有依赖 status code 进行相应处理的监控、日志等都无法正常工作
+* 所有同一个 schema 下的 API 指向同一个 API 地址，这破坏了基于 URL 的路由，同样破坏依赖 URL 进行分类的监控行为
+* GraphQL query 的复杂性处理，N+1 问题等都是让人头疼的问题
+
+! OpenAPI
+
+* server: 定义如何连接服务器
+* path/operation：定义 API 的行为
+* security：定义 API 的安全方案
+* request：定义 HTTP 请求的各种参数及其 schema
+* response：定义 HTTP 响应的各种参数及其 schema
+
+上手简单，整个生态圈有着丰富的工具，且因为 RESTful API 还是目前主流的 API 方向，因而各个云服务商的支持也不错。OpenAPI 还支持丰富的扩展，这使得我们可以围绕着这个标准做一些自定义的行为，比如类似 grpc-gateway 这样的 proxy。我们可以定义一个扩展，使得 OpenAPI 支持从 gRPC 服务获取数据，并且进行 REST/gRPC 之间请求和响应的数据转换，用于自动生成 API 实现。</pre>
+</div>
 <div created="20201025092340887" modified="20201025092340887" title="IaC">
 <pre></pre>
 </div>
@@ -18928,6 +18952,9 @@ select timer_start, sql_text, current_schema from `performance_schema`.events_st
 <pre></pre>
 </div>
 <div created="20200630013543847" modified="20200630013543847" title="OneDrive">
+<pre></pre>
+</div>
+<div created="20201216082139483" modified="20201216082139483" title="OpenAPI">
 <pre></pre>
 </div>
 <div created="20200630021235490" modified="20200630021235490" title="OpenJDK">
