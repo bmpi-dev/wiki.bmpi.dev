@@ -839,6 +839,8 @@ Error message and password prompt
 
 <li>Telegram</li>
 
+<li>The Right Way to Use SecureRandom</li>
+
 <li>TravisCI</li>
 
 <li>vscode</li>
@@ -16334,7 +16336,7 @@ exports.context = contextWidget;
 <div bag="default" revision="1" title="$:/status/UserName">
 <pre></pre>
 </div>
-<div list="Index" title="$:/StoryList">
+<div created="20201222124857884" list="[[The Right Way to Use SecureRandom]] Index" modified="20201222124857884" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20200519141000553" list="$:/.giffmex/Buttons/more-tiddler-edit-actions $:/core/ui/Buttons/delete $:/core/ui/Buttons/cancel $:/core/ui/Buttons/save" modified="20200521145647980" tags="$:/giffmex/bigeditarea $:/giffmex/stroll" title="$:/tags/EditToolbar">
@@ -16410,7 +16412,7 @@ exports.context = contextWidget;
     }
 }</pre>
 </div>
-<div created="20200418122623650" modified="20201216081856593" title="$:/temp/NewTagName">
+<div created="20200418122623650" modified="20201222114740506" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="Paco Rivière" core-version="&gt;=5.0.0" created="20200629142235084" dependents="" description="Catalan (Spain)" icon="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22810%22%20height%3D%22540%22%3E%0A%3Crect%20width%3D%22810%22%20height%3D%22540%22%20fill%3D%22%23FCDD09%22%2F%3E%0A%3Cpath%20stroke%3D%22%23DA121A%22%20stroke-width%3D%2260%22%20d%3D%22M0%2C90H810m0%2C120H0m0%2C120H810m0%2C120H0%22%2F%3E%0A%3C%2Fsvg%3E" modified="20200629142235084" name="ca-ES" original-plugin-type="language" original-tags="" original-title="$:/languages/ca-ES" original-type="application/json" requires-reload="no" server-url="https://tiddlywiki.com/library/v5.1.22/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/https://tiddlywiki.com/library/v5.1.22/index.html/$:/languages/ca-ES" type="text/vnd.tiddlywiki" version="5.1.22">
@@ -17369,7 +17371,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div created="20200502174943975" modified="20200502174950301" title="$:/temp/RenameTags/search">
 <pre>tb</pre>
 </div>
-<div created="20200418122544376" modified="20201221113907376" title="$:/temp/search">
+<div created="20200418122544376" modified="20201222124854924" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20200629142235059" modified="20200629142235059" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/https://tiddlywiki.com/library/v5.1.22/index.html" url="https://tiddlywiki.com/library/v5.1.22/index.html">
@@ -19207,6 +19209,42 @@ https://github.com/madawei2699/mars-rover</pre>
 </div>
 <div created="20200630021904139" modified="20200630021934736" tags="AWS好文" title="Telegram">
 <pre>&lt;&lt;list-links &quot;[tag[Telegram]]&quot;&gt;&gt;</pre>
+</div>
+<div created="20201222114143872" modified="20201222124929615" tags="Java linux 诡异的问题" title="The Right Way to Use SecureRandom">
+<pre>! 问题
+
+项目一开始使用`SecureRandom random = new SecureRandom()`，因此随机为伪随机，不符合安全需求，故修改为`SecureRandom.getInstanceStrong()`。但是在服务器出现了神奇的现象，请求过来线程执行到此段代码被阻塞住，而同样的代码在另外一台服务器上执行并无问题，经过一下午检查，调查清楚原因：
+
+因为`SecureRandom.getInstanceStrong()`底层调用本地方法最终调用了Linux的`/dev/random`块设备去产生随机数，但是`/dev/random`（真熵源，非伪随机）会因为`/proc/sys/kernel/random/entropy_avail`的值低于`/proc/sys/kernel/random/read_wakeup_threshold`时会产生阻塞，刚好我们的服务器此时的值出现低于的阈值的情况，但是另外一台服务器没问题。
+
+经过简单的测试，使用`SecureRandom.getInstanceStrong()`每次都会消耗近3000的熵值，而这个熵值会随着服务器运行时间和一些系统事件消耗光，尤其是docker里的共享`/dev/random`的服务，会产生严重的竞争阻塞问题。
+
+最终项目使用了`间隔时间设置种子`的方式，因每次使用`/dev/random`获取种子会消耗大量熵，所以采取时间间隔的方式解决性能问题。
+
+也可通过安装[[Haveged|https://wiki.archlinux.org/index.php/Haveged]]来解决熵不足的问题。
+
+```
+安全的随机数生成器，要么是采用真熵源的真随机数生成器，要么使用真熵源作为随机数种子，通过符合要求的伪随机数生成器产生随机数。在Linux下只有`/dev/random`才是唯一的真熵源，而`/dev/urandom`是伪随机数生成器。
+
+1. new SecureRandom() 是使用`/dev/urandom`作为种子的伪随机数生成器
+2. SecureRandom.getSeed()是使用`/dev/random`，能产生真随机数
+3. SHA1PRNG是使用`/dev/random`作为种子的伪随机数生成器，性能比`SecureRandom.getInstanceStrong()`要好，安全性比它差
+4. `SecureRandom.getInstanceStrong()`是使用`/dev/random`，能产生真随机数
+5. `SecureRandom.getInstance(&quot;SHA1PRNG&quot;)`相当于`new SecureRandom(SecureRandom.getSeed(20)) `，相当于使用真随机数作为种子的伪随机数生成器
+6. 使用`-Djava.security.egd=file:/dev/./urandom`会使伪随机数算法退化成SHA1PRNG，会降低安全性。（jvm参数值为/dev/./urandom而不是/dev/urandom，这是jdk的一个bug引起的）
+```
+
+[img[https://miro.medium.com/max/1200/0*ptwyqJHlqmEleFWE.png]]
+
+! 参考资料
+https://unix.stackexchange.com/questions/243127/how-to-check-if-reading-from-dev-random-will-block
+
+https://tersesystems.com/blog/2015/12/17/the-right-way-to-use-securerandom/
+
+https://stackoverflow.com/questions/40862857/whats-the-best-way-to-create-a-good-securerandom
+
+https://stackoverflow.com/questions/40294416/does-calling-java-securerandom-getinstance-and-nextbytes-multiple-times-block-on
+</pre>
 </div>
 <div created="20201102151240169" modified="20201102151240169" title="TravisCI">
 <pre></pre>
