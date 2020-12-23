@@ -939,6 +939,8 @@ Error message and password prompt
 
 <li>高并发好文</li>
 
+<li>高性能 Nginx HTTPS 调优 - 如何为 HTTPS 提速 30%</li>
+
 <li>高质量媒体知识渠道</li>
 
 </ul>
@@ -16336,7 +16338,7 @@ exports.context = contextWidget;
 <div bag="default" revision="1" title="$:/status/UserName">
 <pre></pre>
 </div>
-<div created="20201222124857884" list="[[The Right Way to Use SecureRandom]] Index" modified="20201222124857884" title="$:/StoryList">
+<div created="20201223063440214" list="[[高性能 Nginx HTTPS 调优 - 如何为 HTTPS 提速 30%]] Index" modified="20201223063440214" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20200519141000553" list="$:/.giffmex/Buttons/more-tiddler-edit-actions $:/core/ui/Buttons/delete $:/core/ui/Buttons/cancel $:/core/ui/Buttons/save" modified="20200521145647980" tags="$:/giffmex/bigeditarea $:/giffmex/stroll" title="$:/tags/EditToolbar">
@@ -16412,7 +16414,7 @@ exports.context = contextWidget;
     }
 }</pre>
 </div>
-<div created="20200418122623650" modified="20201222114740506" title="$:/temp/NewTagName">
+<div created="20200418122623650" modified="20201223063127583" title="$:/temp/NewTagName">
 <pre></pre>
 </div>
 <div author="Paco Rivière" core-version="&gt;=5.0.0" created="20200629142235084" dependents="" description="Catalan (Spain)" icon="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22810%22%20height%3D%22540%22%3E%0A%3Crect%20width%3D%22810%22%20height%3D%22540%22%20fill%3D%22%23FCDD09%22%2F%3E%0A%3Cpath%20stroke%3D%22%23DA121A%22%20stroke-width%3D%2260%22%20d%3D%22M0%2C90H810m0%2C120H0m0%2C120H810m0%2C120H0%22%2F%3E%0A%3C%2Fsvg%3E" modified="20200629142235084" name="ca-ES" original-plugin-type="language" original-tags="" original-title="$:/languages/ca-ES" original-type="application/json" requires-reload="no" server-url="https://tiddlywiki.com/library/v5.1.22/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/https://tiddlywiki.com/library/v5.1.22/index.html/$:/languages/ca-ES" type="text/vnd.tiddlywiki" version="5.1.22">
@@ -20517,6 +20519,17 @@ https://www.bilibili.com/video/av77252063</pre>
 ! [[压测]]工具
 |distributed load testing tool |http://tsung.erlang-projects.org/ |
 |AWS EC2多实例并发压测工具 |https://github.com/newsapps/beeswithmachineguns |</pre>
+</div>
+<div created="20201223063104024" modified="20201223063431816" tags="nginx 性能调优" title="高性能 Nginx HTTPS 调优 - 如何为 HTTPS 提速 30%">
+<pre>https://kalasearch.cn/blog/high-performance-nginx-tls-tuning/
+
+[img[https://kalasearch.cn/static/ca2dab013ae1c15f135db7dc047e36b3/5a190/roundtrip-before-data-transfer.png]]
+
+* 开启 HTTP/2
+* 调整 Cipher 优先级
+* 启用 OCSP Stapling
+* 调整 ssl_buffer_size
+* 启用 SSL Session 缓存</pre>
 </div>
 <div created="20200630015522926" modified="20200630015542985" tags="magazine" title="高质量媒体知识渠道">
 <pre>!国内
