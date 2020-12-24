@@ -16351,7 +16351,7 @@ exports.context = contextWidget;
 <div bag="default" revision="1" title="$:/status/UserName">
 <pre></pre>
 </div>
-<div created="20201223161742325" list="国外博客国内访问速度提升 Index" modified="20201223161909549" title="$:/StoryList">
+<div list="Index" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20200519141000553" list="$:/.giffmex/Buttons/more-tiddler-edit-actions $:/core/ui/Buttons/delete $:/core/ui/Buttons/cancel $:/core/ui/Buttons/save" modified="20200521145647980" tags="$:/giffmex/bigeditarea $:/giffmex/stroll" title="$:/tags/EditToolbar">
@@ -16382,19 +16382,19 @@ exports.context = contextWidget;
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///Users/dawei.ma/Workspace/mywiki/index.html&quot;
+            &quot;text&quot;: &quot;https://wiki.bmpi.dev/&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
-            &quot;text&quot;: &quot;&quot;
+            &quot;text&quot;: &quot;wiki.bmpi.dev&quot;
         },
         &quot;$:/info/url/hostname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/hostname&quot;,
-            &quot;text&quot;: &quot;&quot;
+            &quot;text&quot;: &quot;wiki.bmpi.dev&quot;
         },
         &quot;$:/info/url/protocol&quot;: {
             &quot;title&quot;: &quot;$:/info/url/protocol&quot;,
-            &quot;text&quot;: &quot;file:&quot;
+            &quot;text&quot;: &quot;https:&quot;
         },
         &quot;$:/info/url/port&quot;: {
             &quot;title&quot;: &quot;$:/info/url/port&quot;,
@@ -16402,7 +16402,7 @@ exports.context = contextWidget;
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/Users/dawei.ma/Workspace/mywiki/index.html&quot;
+            &quot;text&quot;: &quot;/&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -16410,15 +16410,15 @@ exports.context = contextWidget;
         },
         &quot;$:/info/url/origin&quot;: {
             &quot;title&quot;: &quot;$:/info/url/origin&quot;,
-            &quot;text&quot;: &quot;file://&quot;
+            &quot;text&quot;: &quot;https://wiki.bmpi.dev&quot;
         },
         &quot;$:/info/browser/screen/width&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/width&quot;,
-            &quot;text&quot;: &quot;1680&quot;
+            &quot;text&quot;: &quot;1920&quot;
         },
         &quot;$:/info/browser/screen/height&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/screen/height&quot;,
-            &quot;text&quot;: &quot;1050&quot;
+            &quot;text&quot;: &quot;1200&quot;
         },
         &quot;$:/info/browser/language&quot;: {
             &quot;title&quot;: &quot;$:/info/browser/language&quot;,
@@ -19488,10 +19488,51 @@ pandoc --pdf-engine=xelatex --toc -s 2019.md -o 2019.pdf
 <div created="20200909070835291" modified="20200909075234390" title="压测">
 <pre></pre>
 </div>
-<div created="20201223161349680" modified="20201223162026357" tags="博客 性能调优 cdn seo" title="国外博客国内访问速度提升">
-<pre>https://www.bilibili.com/read/cv4759943/
+<div created="20201223161349680" modified="20201224084450524" tags="博客 性能调优 cdn seo" title="国外博客国内访问速度提升">
+<pre>! 1. 使用阿里云CDN加速
+https://www.bilibili.com/read/cv4759943/
 
-https://blog.woadzs.me/post/hello_world/</pre>
+https://blog.woadzs.me/post/hello_world/
+
+
+&lt;&lt;&lt;
+1. 必须注意加速域名不能和源站域名相同，所以需要在Netlify上重新部署一个相同的网站作为CDN源站，同时需要考虑屏蔽爬虫爬取CDN源站，防止内容重复。
+
+2. 需要在DNS配置基于位置的CNAME，中国区流量分配至阿里云CDN，其他默认流量分配给Netlify CDN。
+&lt;&lt;&lt;
+
+
+! 2. Netlify源站SEO的优化
+
+https://docs.netlify.com/functions/build-with-javascript/#synchronous-function-format
+
+使用Serverless函数判断请求的域名如果是主站则robots.txt放行爬虫，否则屏蔽所有爬虫
+
+! 3. 网站线路测速
+
+国内用户请求网站，最终请求到阿里云CDN新加坡节点，新加坡节点是三网GIA，速度比较快。CDN至源站（Netlify CDN）的速度也不需要经过国内网络。
+
+* https://help.aliyun.com/document_detail/163587.html
+* https://zhuanlan.zhihu.com/p/68381011
+*  https://www.ce8.com/http/www.bmpi.dev
+* https://www.17ce.com/
+* https://www.boce.com/
+
+! 4. 证书
+
+需手动在阿里云上申请免费证书给CDN使用，同时下载此证书配置给Netlify使用。过期前需要重新申请证书并更新。
+
+! 5. 达到的效果
+
+* 网站源内容在国外CDN托管
+* 域名在国外托管
+* 无需备案与审查
+* 国内用户请求至阿里云新加坡CDN，请求速度得到提升
+* 国外用户直接请求至Netlify CDN，速度很快
+* 爬虫不会受到影响，经测速百度爬虫请求的还是国外的CDN
+* 双站部署SEO做了相关优化，只给爬虫请求主站的权限
+* Https加速（通过阿里云CDN做配置：https://help.aliyun.com/document_detail/109894.html）
+</pre>
 </div>
 <div created="20201216025922638" modified="20201216051823274" tags="seo" title="外链引流">
 <pre>! [[nofollow]]
